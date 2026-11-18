@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-portal-navy: #0f172a;
+    --color-portal-navy-light: #1e293b;
+    --color-portal-navy-dark: #090d16;
+    
+    --color-portal-bg: #f8fafc;
+    --color-portal-card: #ffffff;
+    --color-portal-border: #e2e8f0;
+    --color-portal-text-primary: #1e293b;
+    --color-portal-text-muted: #64748b;
+
+    /* Pastel Card Accent Tones matching Utopia Design */
+    --accent-purple-bg: #f3e8ff;
+    --accent-purple-border: #e9d5ff;
+    --accent-purple-text: #6b21a8;
+
+    --accent-yellow-bg: #fef3c7;
+    --accent-yellow-border: #fde68a;
+    --accent-yellow-text: #92400e;
+
+    --accent-cyan-bg: #e0f2fe;
+    --accent-cyan-border: #bae6fd;
+    --accent-cyan-text: #0369a1;
+
+    --accent-green-bg: #dcfce7;
+    --accent-green-border: #bbf7d0;
+    --accent-green-text: #15803d;
+
+    --accent-orange-bg: #ffedd5;
+    --accent-orange-border: #fed7aa;
+    --accent-orange-text: #c2410c;
+  }
+}
