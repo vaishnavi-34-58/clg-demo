@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { CheckCheck, AlertCircle } from 'lucide-react';
-import { MOCK_ANNOUNCEMENTS } from '../../mock/announcements.mock';
 import { Announcement } from '../../types/announcement';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const AnnouncementsView: React.FC = () => {
   const { toast } = useToast();
-  const [announcements, setAnnouncements] = useState<Announcement[]>(MOCK_ANNOUNCEMENTS);
+  const { announcements } = useErp();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedNotice, setSelectedNotice] = useState<Announcement | null>(null);
+  const [readIds, setReadIds] = useState<Record<string, boolean>>({});
 
   const categories = ['All', 'Academic', 'Campus', 'Exam', 'Administrative'];
 
@@ -20,15 +21,17 @@ export const AnnouncementsView: React.FC = () => {
   });
 
   const handleMarkAllRead = () => {
-    setAnnouncements((prev) => prev.map((a) => ({ ...a, isRead: true })));
+    const allRead: Record<string, boolean> = {};
+    announcements.forEach((a) => {
+      allRead[a.id] = true;
+    });
+    setReadIds(allRead);
     toast('All notifications marked as read', 'info');
   };
 
   const handleNoticeClick = (notice: Announcement) => {
     setSelectedNotice(notice);
-    setAnnouncements((prev) =>
-      prev.map((a) => (a.id === notice.id ? { ...a, isRead: true } : a))
-    );
+    setReadIds((prev) => ({ ...prev, [notice.id]: true }));
   };
 
   return (
@@ -79,7 +82,7 @@ export const AnnouncementsView: React.FC = () => {
             key={item.id}
             onClick={() => handleNoticeClick(item)}
             className={`bg-white rounded-2xl border p-5 shadow-xs transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
-              item.isRead ? 'border-slate-200/80 opacity-80' : 'border-indigo-200 ring-1 ring-indigo-100/50'
+              item.isRead || readIds[item.id] ? 'border-slate-200/80 opacity-80' : 'border-indigo-200 ring-1 ring-indigo-100/50'
             }`}
           >
             <div className="space-y-1.5 max-w-2xl">

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Calendar, MapPin, CheckCircle2 } from 'lucide-react';
-import { MOCK_PLACEMENT_DRIVES, PlacementDrive } from '../../mock/placements.mock';
+import { PlacementDrive } from '../../mock/placements.mock';
 import { Button } from '../../components/ui/Button';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const PlacementsView: React.FC = () => {
   const { toast } = useToast();
-  const [drives, setDrives] = useState<PlacementDrive[]>(MOCK_PLACEMENT_DRIVES);
+  const { placements } = useErp();
+  const drives = placements;
 
   const handleApplyToDrive = (id: string, company: string) => {
-    setDrives((prev) =>
-      prev.map((d) => (d.id === id ? { ...d, status: 'Applied' as const } : d))
-    );
+    const drive = drives.find((d) => d.id === id);
+    if (drive) {
+      drive.status = 'Applied';
+    }
     toast(`Application for ${company} submitted to Career Center!`, 'success');
   };
 

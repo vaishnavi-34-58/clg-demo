@@ -1,16 +1,20 @@
 export interface PlacementDrive {
   id: string;
   companyName: string;
+  company?: string;
   companyLogo?: string;
+  logoUrl?: string;
   role: string;
-  location: string;
+  location?: string;
   ctc: string;
-  driveDate: string;
+  driveDate?: string;
   minCgpa: number;
   eligibleBranches: string[];
-  status: 'Applied' | 'Eligible' | 'Shortlisted' | 'Not Eligible';
-  applicationDeadline: string;
+  status: 'Applied' | 'Eligible' | 'Shortlisted' | 'Not Eligible' | 'Open' | 'Interview Scheduled';
+  applicationDeadline?: string;
+  deadline?: string;
   interviewDate?: string;
+  description?: string;
 }
 
 export const MOCK_PLACEMENT_DRIVES: PlacementDrive[] = [

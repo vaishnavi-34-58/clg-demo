@@ -247,7 +247,7 @@ export const AssignmentsView: React.FC<AssignmentsViewProps> = ({
             {/* Declaration */}
             <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-[11px] text-slate-600 flex items-start gap-2">
               <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>I certify that this submission represents my original independent academic work in accordance with Utopia University Honor Code.</span>
+              <span>I certify that this submission represents my original independent academic work in accordance with CampusOne University Honor Code.</span>
             </div>
 
             {/* Footer Buttons */}

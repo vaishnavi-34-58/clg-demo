@@ -83,15 +83,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
       >
         {/* Brand Header */}
         <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800/80">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-xs">
-              <Sparkles className="w-4 h-4" />
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-md bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-200 text-xs font-bold font-mono">
+              C1
             </div>
             <div className="flex flex-col">
-              <span className="font-bold tracking-wider text-white text-base font-mono">
-                UTOPIA
+              <span className="font-bold tracking-tight text-white text-sm">
+                CampusOne
               </span>
-              <span className="text-[10px] text-slate-400 font-medium">STUDENT PORTAL</span>
+              <span className="text-[10px] text-slate-400 font-medium tracking-wide uppercase">Student Portal</span>
             </div>
           </div>
 

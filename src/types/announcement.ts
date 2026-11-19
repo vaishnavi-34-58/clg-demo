@@ -2,7 +2,15 @@
  * Announcements and Notifications Domain Types
  */
 
-export type AnnouncementCategory = 'Academic' | 'Campus' | 'Exam' | 'Administrative' | 'Emergency';
+export type AnnouncementCategory =
+  | 'Academic'
+  | 'Campus'
+  | 'Exam'
+  | 'Administrative'
+  | 'Emergency'
+  | 'Campus Life'
+  | 'Examination'
+  | 'General';
 
 export interface Announcement {
   id: string;

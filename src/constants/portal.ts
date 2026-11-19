@@ -1,9 +1,9 @@
 export const PORTAL_CONFIG = {
-  appName: 'UTOPIA',
-  portalTitle: 'College Management ERP – Student Portal',
-  clientName: 'Utopia University',
+  appName: 'CampusOne',
+  portalTitle: 'CampusOne College ERP',
+  clientName: 'CampusOne University',
   version: '1.0.0-demo',
   demoDate: '12 Jan 2024, Friday',
-  portalUrl: 'utopia.com/studentportal',
+  portalUrl: 'campusone.edu/studentportal',
   academicYear: '2023 - 2024',
 } as const;

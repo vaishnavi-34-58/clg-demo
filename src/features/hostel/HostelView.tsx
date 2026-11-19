@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Building2, User, Phone, Wrench } from 'lucide-react';
-import { MOCK_HOSTEL_DATA, HostelDetails } from '../../mock/hostel.mock';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const HostelView: React.FC = () => {
   const { toast } = useToast();
-  const [hostelData, setHostelData] = useState<HostelDetails>(MOCK_HOSTEL_DATA);
+  const { hostel } = useErp();
+  const hostelData = hostel;
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   // Form State
@@ -24,14 +25,10 @@ export const HostelView: React.FC = () => {
       status: 'Pending' as const,
     };
 
-    setHostelData({
-      ...hostelData,
-      complaints: [newComplaint, ...hostelData.complaints],
-    });
-
+    hostel.complaints.unshift(newComplaint as any);
     setIsComplaintModalOpen(false);
     setComplaintDescription('');
-    toast('Hostel maintenance ticket created successfully!', 'success');
+    toast('Hostel maintenance ticket created successfully and routed to Chief Warden!', 'success');
   };
 
   return (

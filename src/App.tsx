@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MainLayout } from './components/layout/MainLayout';
-import { ToastProvider, useToast } from './context/ToastContext';
+import { ToastProvider } from './context/ToastContext';
+import { ErpProvider } from './context/ErpContext';
+import { useErp } from './hooks/useErp';
+import { useToast } from './hooks/useToast';
 import { APP_ROUTES } from './app/routes';
 
-// Mock Data
-import { DEMO_STUDENT } from './mock/demoStudent';
-import { MOCK_ENROLLED_COURSES } from './mock/courses.mock';
-import { MOCK_EXAM_RECORDS } from './mock/examinations.mock';
-import { MOCK_HOMEWORK_ITEMS } from './mock/homeworks.mock';
-import { StudentProfile } from './types/student';
-import { HomeworkItem } from './types/assignment';
-
-// Feature Views
+// Student Feature Views
 import { DashboardView } from './features/dashboard/DashboardView';
 import { ProfileView } from './features/profile/ProfileView';
 import { CoursesView } from './features/courses/CoursesView';
@@ -34,66 +29,173 @@ import { SettingsView } from './features/settings/SettingsView';
 import { Modal } from './components/ui/Modal';
 import { Button } from './components/ui/Button';
 
+// Management Feature Views
+import { ManagementLoginView } from './features/management/ManagementLoginView';
+import { ManagementLayout } from './components/layout/ManagementLayout';
+import { RoleDashboardRouter } from './features/management/dashboards/RoleDashboardRouter';
+import { ManagementStudentsView } from './features/management/modules/ManagementStudentsView';
+import { ManagementFacultyView } from './features/management/modules/ManagementFacultyView';
+import { ManagementDepartmentsView } from './features/management/modules/ManagementDepartmentsView';
+import { ManagementCoursesView } from './features/management/modules/ManagementCoursesView';
+import { ManagementAttendanceView } from './features/management/modules/ManagementAttendanceView';
+import { ManagementAssignmentsView } from './features/management/modules/ManagementAssignmentsView';
+import { ManagementExaminationsView } from './features/management/modules/ManagementExaminationsView';
+import { ManagementAdmissionsView } from './features/management/modules/ManagementAdmissionsView';
+import { ManagementFinanceView } from './features/management/modules/ManagementFinanceView';
+import { ManagementHostelView } from './features/management/modules/ManagementHostelView';
+import { ManagementTransportView } from './features/management/modules/ManagementTransportView';
+import { ManagementLibraryView } from './features/management/modules/ManagementLibraryView';
+import { ManagementPlacementsView } from './features/management/modules/ManagementPlacementsView';
+import { ManagementStudentAffairsView } from './features/management/modules/ManagementStudentAffairsView';
+import { ManagementAuditLogsView } from './features/management/modules/ManagementAuditLogsView';
+import { ManagementSettingsView } from './features/management/modules/ManagementSettingsView';
+
 const STORAGE_KEYS = {
-  STUDENT: 'utopia_erp_student',
-  HOMEWORKS: 'utopia_erp_homeworks',
   CURRENT_ROUTE: 'utopia_erp_route',
 };
 
 const AppContent: React.FC = () => {
   const { toast } = useToast();
+  const {
+    student,
+    updateStudentProfile,
+    homeworks,
+    courses,
+    exams,
+    currentUser,
+    logoutManagement,
+  } = useErp();
 
-  // Load persisted student or fallback to DEMO_STUDENT
-  const [student, setStudent] = useState<StudentProfile>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.STUDENT);
-    return saved ? JSON.parse(saved) : DEMO_STUDENT;
-  });
-
-  // Load persisted homeworks or fallback to MOCK_HOMEWORK_ITEMS
-  const [homeworks, setHomeworks] = useState<HomeworkItem[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.HOMEWORKS);
-    return saved ? JSON.parse(saved) : MOCK_HOMEWORK_ITEMS;
-  });
-
-  // Current active route
+  // Active route synchronized with URL pathname and history
   const [currentPath, setCurrentPath] = useState<string>(() => {
+    const urlPath = window.location.pathname;
+    if (urlPath && urlPath !== '/' && urlPath !== '') {
+      return urlPath;
+    }
     return localStorage.getItem(STORAGE_KEYS.CURRENT_ROUTE) || APP_ROUTES.DASHBOARD;
   });
 
-  // Logout Confirmation Modal
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname || APP_ROUTES.DASHBOARD);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
-  // Sync route changes
+  // Student Logout Modal
+  const [isStudentLogoutModalOpen, setIsStudentLogoutModalOpen] = useState(false);
+
+  // Navigate handler
   const handleNavigate = (path: string) => {
-    if (path === '/logout') {
-      setIsLogoutModalOpen(true);
+    if (path === '/logout' || path === APP_ROUTES.LOGOUT || path === APP_ROUTES.STUDENT_LOGOUT) {
+      setIsStudentLogoutModalOpen(true);
       return;
     }
+
+    if (path === '/management/logout' || path === APP_ROUTES.MANAGEMENT_LOGOUT) {
+      logoutManagement();
+      setCurrentPath(APP_ROUTES.MANAGEMENT_LOGIN);
+      localStorage.setItem(STORAGE_KEYS.CURRENT_ROUTE, APP_ROUTES.MANAGEMENT_LOGIN);
+      window.history.pushState(null, '', APP_ROUTES.MANAGEMENT_LOGIN);
+      toast('Signed out from Management Portal.', 'info');
+      return;
+    }
+
     setCurrentPath(path);
     localStorage.setItem(STORAGE_KEYS.CURRENT_ROUTE, path);
+    window.history.pushState(null, '', path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Update student profile and persist
-  const handleUpdateStudent = (updated: StudentProfile) => {
-    setStudent(updated);
-    localStorage.setItem(STORAGE_KEYS.STUDENT, JSON.stringify(updated));
-  };
+  // 1. Management Login Route
+  if (currentPath === APP_ROUTES.MANAGEMENT_LOGIN) {
+    return (
+      <ManagementLoginView
+        onSuccess={() => handleNavigate(APP_ROUTES.MANAGEMENT_DASHBOARD)}
+        onGoToStudentPortal={() => handleNavigate(APP_ROUTES.DASHBOARD)}
+      />
+    );
+  }
 
-  // Update homework items and persist
-  const handleUpdateHomeworks = (updated: HomeworkItem[]) => {
-    setHomeworks(updated);
-    localStorage.setItem(STORAGE_KEYS.HOMEWORKS, JSON.stringify(updated));
-  };
+  // 2. Management Portal Routes
+  if (currentPath.startsWith('/management')) {
+    // If not authenticated, redirect to login
+    if (!currentUser) {
+      return (
+        <ManagementLoginView
+          onSuccess={() => handleNavigate(APP_ROUTES.MANAGEMENT_DASHBOARD)}
+          onGoToStudentPortal={() => handleNavigate(APP_ROUTES.DASHBOARD)}
+        />
+      );
+    }
 
-  // Render active module view
-  const renderCurrentView = () => {
+    const renderManagementModule = () => {
+      switch (currentPath) {
+        case APP_ROUTES.MANAGEMENT_DASHBOARD:
+          return <RoleDashboardRouter onNavigate={handleNavigate} />;
+        case APP_ROUTES.MANAGEMENT_STUDENTS:
+          return <ManagementStudentsView />;
+        case APP_ROUTES.MANAGEMENT_FACULTY:
+          return <ManagementFacultyView />;
+        case APP_ROUTES.MANAGEMENT_DEPARTMENTS:
+          return <ManagementDepartmentsView />;
+        case APP_ROUTES.MANAGEMENT_COURSES:
+          return <ManagementCoursesView />;
+        case APP_ROUTES.MANAGEMENT_ATTENDANCE:
+          return <ManagementAttendanceView />;
+        case APP_ROUTES.MANAGEMENT_ASSIGNMENTS:
+          return <ManagementAssignmentsView />;
+        case APP_ROUTES.MANAGEMENT_EXAMINATIONS:
+          return <ManagementExaminationsView />;
+        case APP_ROUTES.MANAGEMENT_ADMISSIONS:
+          return <ManagementAdmissionsView />;
+        case APP_ROUTES.MANAGEMENT_FINANCE:
+          return <ManagementFinanceView />;
+        case APP_ROUTES.MANAGEMENT_HOSTEL:
+          return <ManagementHostelView />;
+        case APP_ROUTES.MANAGEMENT_TRANSPORT:
+          return <ManagementTransportView />;
+        case APP_ROUTES.MANAGEMENT_LIBRARY:
+          return <ManagementLibraryView />;
+        case APP_ROUTES.MANAGEMENT_PLACEMENTS:
+          return <ManagementPlacementsView />;
+        case APP_ROUTES.MANAGEMENT_STUDENT_AFFAIRS:
+          return <ManagementStudentAffairsView />;
+        case APP_ROUTES.MANAGEMENT_AUDIT_LOGS:
+        case APP_ROUTES.MANAGEMENT_REPORTS:
+          return <ManagementAuditLogsView />;
+        case APP_ROUTES.MANAGEMENT_SETTINGS:
+          return <ManagementSettingsView />;
+        default:
+          return <RoleDashboardRouter onNavigate={handleNavigate} />;
+      }
+    };
+
+    return (
+      <ManagementLayout
+        currentUser={currentUser}
+        currentPath={currentPath}
+        onNavigate={handleNavigate}
+        onSwitchToStudentPortal={() => handleNavigate(APP_ROUTES.DASHBOARD)}
+        onLogout={() => {
+          logoutManagement();
+          handleNavigate(APP_ROUTES.MANAGEMENT_LOGIN);
+        }}
+      >
+        {renderManagementModule()}
+      </ManagementLayout>
+    );
+  }
+
+  // 3. Student Portal Routes
+  const renderStudentView = () => {
     switch (currentPath) {
       case APP_ROUTES.DASHBOARD:
         return (
           <DashboardView
-            courses={MOCK_ENROLLED_COURSES}
-            exams={MOCK_EXAM_RECORDS}
+            courses={courses}
+            exams={exams}
             onNavigate={handleNavigate}
           />
         );
@@ -102,13 +204,13 @@ const AppContent: React.FC = () => {
         return (
           <ProfileView
             student={student}
-            onUpdateStudent={handleUpdateStudent}
+            onUpdateStudent={updateStudentProfile}
           />
         );
 
       case APP_ROUTES.ENROLLED_COURSES:
       case APP_ROUTES.COURSE_PLAN:
-        return <CoursesView courses={MOCK_ENROLLED_COURSES} />;
+        return <CoursesView courses={courses} />;
 
       case APP_ROUTES.SCHEDULE:
         return <TimetableView />;
@@ -126,7 +228,6 @@ const AppContent: React.FC = () => {
         return (
           <AssignmentsView
             homeworks={homeworks}
-            onUpdateHomeworks={handleUpdateHomeworks}
           />
         );
 
@@ -167,8 +268,8 @@ const AppContent: React.FC = () => {
       default:
         return (
           <DashboardView
-            courses={MOCK_ENROLLED_COURSES}
-            exams={MOCK_EXAM_RECORDS}
+            courses={courses}
+            exams={exams}
             onNavigate={handleNavigate}
           />
         );
@@ -182,14 +283,14 @@ const AppContent: React.FC = () => {
       currentPath={currentPath}
       onNavigate={handleNavigate}
     >
-      {renderCurrentView()}
+      {renderStudentView()}
 
       {/* Logout Modal */}
-      {isLogoutModalOpen && (
+      {isStudentLogoutModalOpen && (
         <Modal
-          isOpen={isLogoutModalOpen}
-          onClose={() => setIsLogoutModalOpen(false)}
-          title="Sign Out of Utopia ERP Portal"
+          isOpen={isStudentLogoutModalOpen}
+          onClose={() => setIsStudentLogoutModalOpen(false)}
+          title="Sign Out of CampusOne Portal"
           description="Are you sure you want to end your student session?"
           maxWidth="sm"
         >
@@ -202,7 +303,7 @@ const AppContent: React.FC = () => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setIsLogoutModalOpen(false)}
+                onClick={() => setIsStudentLogoutModalOpen(false)}
               >
                 Stay Logged In
               </Button>
@@ -210,7 +311,7 @@ const AppContent: React.FC = () => {
                 variant="primary"
                 size="sm"
                 onClick={() => {
-                  setIsLogoutModalOpen(false);
+                  setIsStudentLogoutModalOpen(false);
                   handleNavigate(APP_ROUTES.DASHBOARD);
                   toast('Demo session refreshed. Welcome back, Merna!', 'info');
                 }}
@@ -229,7 +330,9 @@ const AppContent: React.FC = () => {
 export const App: React.FC = () => {
   return (
     <ToastProvider>
-      <AppContent />
+      <ErpProvider>
+        <AppContent />
+      </ErpProvider>
     </ToastProvider>
   );
 };

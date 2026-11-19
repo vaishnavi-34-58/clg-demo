@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Search, BookOpen, RotateCw } from 'lucide-react';
-import { MOCK_LIBRARY_BOOKS } from '../../mock/library.mock';
 import { LibraryBook } from '../../types/library';
 import { Button } from '../../components/ui/Button';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const LibraryView: React.FC = () => {
   const { toast } = useToast();
-  const [books, setBooks] = useState<LibraryBook[]>(MOCK_LIBRARY_BOOKS);
+  const { library } = useErp();
+  const books = library;
   const [searchQuery, setSearchQuery] = useState('');
 
   const catalog = [
@@ -19,9 +20,10 @@ export const LibraryView: React.FC = () => {
   ];
 
   const handleRenewBook = (bookId: string) => {
-    setBooks((prev) =>
-      prev.map((b) => (b.id === bookId ? { ...b, dueDate: 'Feb 15, 2024' } : b))
-    );
+    const bk = books.find((b) => b.id === bookId);
+    if (bk) {
+      bk.dueDate = 'Feb 15, 2024';
+    }
     toast('Book loan period renewed for an additional 21 days!', 'success');
   };
 

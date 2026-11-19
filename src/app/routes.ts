@@ -1,13 +1,58 @@
 /**
  * Centralized Application Route Definitions
+ * Clean separation between Student Portal and Management Portal
  */
 
 export const APP_ROUTES = {
-  // Core
+  // Student Portal Routes
+  STUDENT_DASHBOARD: '/dashboard',
+  STUDENT_PROFILE: '/profile',
+  STUDENT_SCHEDULE: '/schedule',
+  STUDENT_EXAM_BOARD: '/exam-board',
+  STUDENT_HOMEWORKS: '/homeworks',
+  STUDENT_GRADE_REPORT: '/grade-report',
+  STUDENT_ENROLLED_COURSES: '/enrolled-courses',
+  STUDENT_COURSE_PLAN: '/course-plan',
+  STUDENT_ATTENDANCE: '/attendance',
+  STUDENT_LIBRARIES: '/libraries',
+  STUDENT_FINANCE: '/finance',
+  STUDENT_ANNOUNCEMENTS: '/announcements',
+  STUDENT_LEAVE: '/leave',
+  STUDENT_EVENTS: '/events',
+  STUDENT_HOSTEL: '/hostel',
+  STUDENT_TRANSPORT: '/transport',
+  STUDENT_CERTIFICATES: '/certificates',
+  STUDENT_GRIEVANCES: '/grievances',
+  STUDENT_PLACEMENTS: '/placements',
+  STUDENT_ACCOUNT_SETTINGS: '/settings/account',
+  STUDENT_NOTIFICATION_PREFERENCES: '/settings/notifications',
+  STUDENT_LOGOUT: '/logout',
+
+  // Management Portal Routes
+  MANAGEMENT_LOGIN: '/management/login',
+  MANAGEMENT_DASHBOARD: '/management/dashboard',
+  MANAGEMENT_STUDENTS: '/management/students',
+  MANAGEMENT_FACULTY: '/management/faculty',
+  MANAGEMENT_DEPARTMENTS: '/management/departments',
+  MANAGEMENT_COURSES: '/management/courses',
+  MANAGEMENT_ATTENDANCE: '/management/attendance',
+  MANAGEMENT_ASSIGNMENTS: '/management/assignments',
+  MANAGEMENT_EXAMINATIONS: '/management/examinations',
+  MANAGEMENT_ADMISSIONS: '/management/admissions',
+  MANAGEMENT_FINANCE: '/management/finance',
+  MANAGEMENT_HOSTEL: '/management/hostel',
+  MANAGEMENT_TRANSPORT: '/management/transport',
+  MANAGEMENT_LIBRARY: '/management/library',
+  MANAGEMENT_PLACEMENTS: '/management/placements',
+  MANAGEMENT_STUDENT_AFFAIRS: '/management/student-affairs',
+  MANAGEMENT_AUDIT_LOGS: '/management/audit-logs',
+  MANAGEMENT_REPORTS: '/management/reports',
+  MANAGEMENT_SETTINGS: '/management/settings',
+  MANAGEMENT_LOGOUT: '/management/logout',
+
+  // Backwards compatibility aliases for Student Portal
   DASHBOARD: '/dashboard',
   PROFILE: '/profile',
-
-  // Academic Modules
   SCHEDULE: '/schedule',
   EXAM_BOARD: '/exam-board',
   HOMEWORKS: '/homeworks',
@@ -16,8 +61,6 @@ export const APP_ROUTES = {
   COURSE_PLAN: '/course-plan',
   ATTENDANCE: '/attendance',
   LIBRARIES: '/libraries',
-
-  // Administrative & Student Services
   FINANCE: '/finance',
   ANNOUNCEMENTS: '/announcements',
   LEAVE: '/leave',
@@ -27,8 +70,6 @@ export const APP_ROUTES = {
   CERTIFICATES: '/certificates',
   GRIEVANCES: '/grievances',
   PLACEMENTS: '/placements',
-
-  // Settings & Account
   ACCOUNT_SETTINGS: '/settings/account',
   NOTIFICATION_PREFERENCES: '/settings/notifications',
   LOGOUT: '/logout',

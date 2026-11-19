@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Bus, QrCode, Printer } from 'lucide-react';
-import { MOCK_TRANSPORT_DATA } from '../../mock/transport.mock';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const TransportView: React.FC = () => {
   const { toast } = useToast();
+  const { transport } = useErp();
   const [showPassModal, setShowPassModal] = useState(false);
-  const data = MOCK_TRANSPORT_DATA;
+  const data = transport;
 
   return (
     <div className="max-w-6xl mx-auto space-y-6 pb-12">
@@ -117,14 +118,14 @@ export const TransportView: React.FC = () => {
           isOpen={showPassModal}
           onClose={() => setShowPassModal(false)}
           title="Digital Student Bus Transit Pass"
-          description="Utopia University Transportation Authority"
+          description="CampusOne University Transportation Authority"
           maxWidth="md"
         >
           <div className="space-y-4 text-xs">
             <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950 text-white shadow-xl space-y-4 relative overflow-hidden">
               <div className="flex items-center justify-between pb-3 border-b border-white/10">
                 <div>
-                  <span className="text-[10px] tracking-wider text-indigo-300 font-mono block">UTOPIA UNIVERSITY TRANSIT</span>
+                  <span className="text-[10px] tracking-wider text-indigo-300 font-mono block">CAMPUSONE UNIVERSITY TRANSIT</span>
                   <h3 className="font-bold text-base text-white">Student Bus Pass</h3>
                 </div>
                 <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-bold">

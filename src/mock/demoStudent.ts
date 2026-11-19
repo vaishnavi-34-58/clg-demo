@@ -9,7 +9,7 @@ export const DEMO_STUDENT: StudentProfile = {
   studentId: 'UTP-2023-4182',
   name: 'Merna Vance',
   preferredName: 'Merna',
-  email: 'merna.vance@student.utopia.edu',
+  email: 'merna.vance@student.campusone.edu',
   avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
   program: 'B.Sc. Interactive Design & Digital Media',
   department: 'Faculty of Design & Computing',

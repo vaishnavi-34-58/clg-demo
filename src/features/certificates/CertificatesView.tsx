@@ -207,7 +207,7 @@ export const CertificatesView: React.FC = () => {
             <div className="p-8 rounded-2xl bg-white border-2 border-slate-300 shadow-inner space-y-6 text-center">
               <div className="border-b-2 border-slate-900 pb-4">
                 <h3 className="font-serif font-bold text-lg text-slate-900 tracking-wider uppercase">
-                  UTOPIA UNIVERSITY OF ARTS &amp; TECHNOLOGY
+                  CAMPUSONE UNIVERSITY OF ARTS &amp; TECHNOLOGY
                 </h3>
                 <p className="text-[11px] text-slate-500 tracking-widest uppercase">Office of the University Registrar</p>
               </div>
@@ -217,7 +217,7 @@ export const CertificatesView: React.FC = () => {
                   {selectedDownloadCert.certificateType}
                 </h4>
                 <p className="text-slate-700 leading-relaxed text-xs text-justify">
-                  This is to officially certify that <strong className="text-slate-950 font-bold">Merna Vance</strong>, holding Student Identification Number <strong className="font-mono text-slate-950">UTP-2023-4182</strong>, is a bonafide full-time undergraduate student currently enrolled in Semester 3 of the <strong className="text-slate-950">Bachelor of Science in Interactive Design &amp; Digital Media</strong> program at Utopia University for the Academic Year 2023 - 2024.
+                  This is to officially certify that <strong className="text-slate-950 font-bold">Merna Vance</strong>, holding Student Identification Number <strong className="font-mono text-slate-950">UTP-2023-4182</strong>, is a bonafide full-time undergraduate student currently enrolled in Semester 3 of the <strong className="text-slate-950">Bachelor of Science in Interactive Design &amp; Digital Media</strong> program at CampusOne University for the Academic Year 2023 - 2024.
                 </p>
                 <p className="text-slate-700 leading-relaxed text-xs text-justify">
                   To the best of our knowledge, her conduct and academic progress have been exemplary throughout her study period. This certificate is issued upon her request for the purpose of: <strong className="text-slate-900 font-semibold">{selectedDownloadCert.purpose}</strong>.

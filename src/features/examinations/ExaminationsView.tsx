@@ -204,11 +204,11 @@ export const ExaminationsView: React.FC = () => {
               <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-base font-mono">
-                    U
+                    C1
                   </div>
                   <div>
                     <h3 className="font-extrabold text-sm text-slate-900 uppercase">
-                      UTOPIA UNIVERSITY • CONTROLLER OF EXAMINATIONS
+                      CAMPUSONE UNIVERSITY • CONTROLLER OF EXAMINATIONS
                     </h3>
                     <p className="text-[10px] text-slate-500">Official Student Examination Admit Card</p>
                   </div>

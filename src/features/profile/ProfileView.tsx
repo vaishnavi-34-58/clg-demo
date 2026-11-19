@@ -278,7 +278,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
                 <span className="text-slate-400 block font-semibold text-[11px]">Campus Residence (Current)</span>
                 <p className="text-slate-800 font-medium">Room 304, Wing B, North Residence Hall</p>
-                <p className="text-slate-600">Utopia University Main Campus, CA 94107</p>
+                <p className="text-slate-600">CampusOne University Main Campus, CA 94107</p>
               </div>
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
                 <span className="text-slate-400 block font-semibold text-[11px]">Permanent Home Address</span>

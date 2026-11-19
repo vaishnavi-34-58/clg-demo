@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Bell, MessageSquare, Menu, ChevronDown, User, Settings, LogOut } from 'lucide-react';
+import { Search, Bell, MessageSquare, Menu, ChevronDown, User, Settings, LogOut, ShieldCheck } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
 import { ProgressBar } from '../ui/ProgressBar';
 import { StudentProfile } from '../../types/student';
@@ -70,6 +70,16 @@ export const Header: React.FC<HeaderProps> = ({
             label={`Semester ${student.currentSemester} of ${student.totalSemesters}`}
           />
         </div>
+
+        {/* Switch to Management Portal Button */}
+        <button
+          onClick={() => onNavigate?.('/management/login')}
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200/80 text-xs font-semibold transition-colors cursor-pointer"
+          title="Switch to Role-Based Management Portal"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
+          <span>Management Portal</span>
+        </button>
 
         {/* Quick Icon Actions */}
         <div className="flex items-center gap-1 sm:gap-2">
@@ -179,6 +189,16 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <Settings className="w-3.5 h-3.5 text-slate-400" />
                 <span>Account Settings</span>
+              </button>
+              <button
+                onClick={() => {
+                  setShowProfileMenu(false);
+                  onNavigate?.('/management/login');
+                }}
+                className="w-full flex items-center gap-2.5 px-4 py-2 text-xs text-indigo-600 hover:bg-indigo-50 cursor-pointer text-left font-medium"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-indigo-500" />
+                <span>Management Portal</span>
               </button>
               <div className="border-t border-slate-100 my-1" />
               <button

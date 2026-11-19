@@ -118,11 +118,11 @@ export const ExamBoardSection: React.FC<ExamBoardSectionProps> = ({
               <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold font-mono text-sm">
-                    U
+                    C1
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-slate-900 uppercase">
-                      UTOPIA UNIVERSITY – OFFICE OF CONTROLLER OF EXAMINATIONS
+                      CAMPUSONE UNIVERSITY – OFFICE OF CONTROLLER OF EXAMINATIONS
                     </h4>
                     <p className="text-[10px] text-slate-500">Admit Card / Exam Verification Pass • Spring 2024</p>
                   </div>

@@ -23,7 +23,7 @@ export const EventsView: React.FC = () => {
   const initialEvents: EventItem[] = [
     {
       id: 'EVT-01',
-      title: 'Annual Utopia Design Jam & 24hr Prototype Sprint',
+      title: 'Annual CampusOne Design Jam & 24hr Prototype Sprint',
       club: 'Interactive Design Guild',
       category: 'Design & Tech',
       date: 'Jan 28, 2024',
@@ -48,14 +48,14 @@ export const EventsView: React.FC = () => {
     {
       id: 'EVT-03',
       title: 'Inter-College Basketball Championship Quarter-Finals',
-      club: 'Utopia Athletics League',
+      club: 'CampusOne Athletics League',
       category: 'Sports',
       date: 'Feb 09, 2024',
       time: '04:30 PM – 07:00 PM',
       venue: 'Campus Indoor Sports Arena',
       seatsLeft: 120,
       registered: false,
-      description: 'Cheer for the Utopia Titans as they host the state regional division knockouts.',
+      description: 'Cheer for the CampusOne Titans as they host the state regional division knockouts.',
     },
     {
       id: 'EVT-04',
@@ -212,7 +212,7 @@ export const EventsView: React.FC = () => {
             { name: 'Interactive Design Guild', members: 142, lead: 'Prof. Smith', desc: 'UI/UX hackathons, usability testing, and design systems.' },
             { name: 'Robotics & AI Lab', members: 198, lead: 'Dr. Johnson', desc: 'Autonomous rovers, computer vision, and machine learning.' },
             { name: 'Animation & VFX Society', members: 110, lead: 'Dr. Martinez', desc: '3D character animation, rigging, and film festivals.' },
-            { name: 'Utopia Titan Athletics', members: 240, lead: 'Coach Davis', desc: 'Inter-collegiate basketball, soccer, and fitness.' },
+            { name: 'CampusOne Titan Athletics', members: 240, lead: 'Coach Davis', desc: 'Inter-collegiate basketball, soccer, and fitness.' },
             { name: 'Campus Music & Drama', members: 165, lead: 'Elena Rostova', desc: 'Acoustic jams, annual musical production, and theatrical arts.' },
             { name: 'Student Code Foundry', members: 320, lead: 'Julian Rivera', desc: 'Open-source web engineering and developer conferences.' },
           ].map((c, i) => (

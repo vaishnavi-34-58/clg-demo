@@ -1,6 +1,7 @@
 export interface HostelDetails {
   hostelName: string;
   block: string;
+  blockName?: string;
   roomNumber: string;
   bedNumber: string;
   roomType: string;
@@ -18,20 +19,21 @@ export interface HostelDetails {
     id: string;
     category: string;
     description: string;
+    issue?: string;
     date: string;
     status: 'Resolved' | 'In Progress' | 'Pending';
   }[];
 }
 
 export const MOCK_HOSTEL_DATA: HostelDetails = {
-  hostelName: 'Utopia North Residence Hall',
+  hostelName: 'CampusOne North Residence Hall',
   block: 'Block B - Wing 3',
   roomNumber: '304',
   bedNumber: 'Bed A',
   roomType: 'Double Occupancy (Air Conditioned)',
   wardenName: 'Dr. Arthur Bell',
   wardenPhone: '+1 (555) 728-1920',
-  wardenEmail: 'warden.north@utopia.edu',
+  wardenEmail: 'warden.north@campusone.edu',
   feeStatus: 'Paid',
   feeAmount: 1250,
   roommates: [

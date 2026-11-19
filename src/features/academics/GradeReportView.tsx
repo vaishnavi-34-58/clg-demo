@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Download, Printer, CheckCircle2, TrendingUp } from 'lucide-react';
-import { MOCK_SEMESTER_RESULTS } from '../../mock/results.mock';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const GradeReportView: React.FC = () => {
   const { toast } = useToast();
+  const { results } = useErp();
   const [selectedSemesterIndex, setSelectedSemesterIndex] = useState(2); // Default to Sem 3 (Current)
   const [showTranscriptModal, setShowTranscriptModal] = useState(false);
 
-  const currentResult = MOCK_SEMESTER_RESULTS[selectedSemesterIndex];
+  const semesterResults = results;
+  const currentResult = semesterResults[selectedSemesterIndex] || semesterResults[0];
 
   return (
     <div className="max-w-6xl mx-auto space-y-6 pb-12">
@@ -64,7 +66,7 @@ export const GradeReportView: React.FC = () => {
 
       {/* Semester Selector Pills */}
       <div className="flex items-center gap-2 border-b border-slate-200 pb-2 text-xs font-semibold">
-        {MOCK_SEMESTER_RESULTS.map((res, idx) => (
+        {semesterResults.map((res, idx) => (
           <button
             key={res.semesterNumber}
             onClick={() => setSelectedSemesterIndex(idx)}
@@ -142,7 +144,7 @@ export const GradeReportView: React.FC = () => {
           isOpen={showTranscriptModal}
           onClose={() => setShowTranscriptModal(false)}
           title="Official Grade Transcript Preview"
-          description="Utopia University • Academic Registrar Records"
+          description="CampusOne University • Academic Registrar Records"
           maxWidth="2xl"
         >
           <div className="space-y-4 text-xs">
@@ -150,7 +152,7 @@ export const GradeReportView: React.FC = () => {
               <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                 <div>
                   <h3 className="font-extrabold text-sm text-slate-900 uppercase">
-                    UTOPIA UNIVERSITY • OFFICIAL STUDENT GRADE TRANSCRIPT
+                    CAMPUSONE UNIVERSITY • OFFICIAL STUDENT GRADE TRANSCRIPT
                   </h3>
                   <p className="text-[10px] text-slate-500">Office of the University Registrar • Certified Academic Record</p>
                 </div>
@@ -190,7 +192,7 @@ export const GradeReportView: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
-                      {MOCK_SEMESTER_RESULTS.map((r) => (
+                      {semesterResults.map((r) => (
                         <tr key={r.semesterNumber}>
                           <td className="p-2.5 font-bold text-slate-900">{r.semesterName}</td>
                           <td className="p-2.5 text-slate-600">{r.academicYear}</td>

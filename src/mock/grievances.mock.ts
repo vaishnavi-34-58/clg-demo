@@ -1,10 +1,12 @@
 export interface GrievanceTicket {
   id: string;
+  ticketNumber?: string;
   category: 'Academics' | 'Hostel' | 'Finance' | 'IT / Portal' | 'Library' | 'General';
   subject: string;
   description: string;
   submittedDate: string;
-  status: 'Resolved' | 'In Review' | 'Open';
+  filedDate?: string;
+  status: 'Resolved' | 'In Review' | 'Open' | 'In Progress';
   priority: 'High' | 'Medium' | 'Low';
   response?: string;
   respondedBy?: string;

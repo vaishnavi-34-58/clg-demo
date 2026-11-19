@@ -15,7 +15,7 @@ export const MOCK_ANNOUNCEMENTS: Announcement[] = [
     title: 'Annual Design Expo & Student Exhibition',
     category: 'Campus',
     date: 'Jan 08, 2024',
-    summary: 'Submissions for the Annual Utopia Student Design Showcase are now open.',
+    summary: 'Submissions for the Annual CampusOne Student Design Showcase are now open.',
     author: 'School of Arts & Media',
     priority: 'Normal',
   },

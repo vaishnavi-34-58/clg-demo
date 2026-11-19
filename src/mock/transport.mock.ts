@@ -7,6 +7,7 @@ export interface TransportDetails {
   dropTime: string;
   driverName: string;
   driverPhone: string;
+  driverContact?: string;
   passStatus: 'Active' | 'Expired' | 'Suspended';
   validUntil: string;
   feeAmount: number;
@@ -33,6 +34,6 @@ export const MOCK_TRANSPORT_DATA: TransportDetails = {
     { stopName: 'Oakridge Central Station', morningTime: '07:45 AM', eveningTime: '05:20 PM' },
     { stopName: 'Hillcrest Blvd Crossing', morningTime: '08:00 AM', eveningTime: '05:05 PM' },
     { stopName: 'Grand Avenue Square', morningTime: '08:15 AM', eveningTime: '04:50 PM' },
-    { stopName: 'Utopia Campus Terminal', morningTime: '08:35 AM', eveningTime: '04:30 PM' },
+    { stopName: 'CampusOne Terminal', morningTime: '08:35 AM', eveningTime: '04:30 PM' },
   ],
 };

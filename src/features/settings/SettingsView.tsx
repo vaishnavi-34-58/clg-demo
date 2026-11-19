@@ -221,7 +221,7 @@ export const SettingsView: React.FC = () => {
               <div className="flex items-center gap-3">
                 <Smartphone className="w-5 h-5 text-slate-500" />
                 <div>
-                  <h4 className="font-bold text-slate-900">Utopia Mobile App on iPhone 15 Pro</h4>
+                  <h4 className="font-bold text-slate-900">CampusOne Mobile App on iPhone 15 Pro</h4>
                   <p className="text-slate-400 text-[11px]">Cellular LTE • Last active: Yesterday, 09:20 PM</p>
                 </div>
               </div>

@@ -13,4 +13,6 @@ export interface FeeItem {
   paidDate?: string;
   status: FeeStatus;
   receiptNumber?: string;
+  invoiceNumber?: string;
+  semester?: string;
 }

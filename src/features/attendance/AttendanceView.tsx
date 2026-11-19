@@ -1,13 +1,14 @@
 import React from 'react';
 import { CheckCircle2, Info } from 'lucide-react';
-import { MOCK_ATTENDANCE_RECORDS } from '../../mock/attendance.mock';
+import { useErp } from '../../hooks/useErp';
 
 export const AttendanceView: React.FC = () => {
+  const { attendance } = useErp();
 
   // Overall attendance calculation
-  const totalClasses = MOCK_ATTENDANCE_RECORDS.reduce((acc, curr) => acc + curr.totalLectures, 0);
-  const totalAttended = MOCK_ATTENDANCE_RECORDS.reduce((acc, curr) => acc + curr.attendedLectures, 0);
-  const overallPercentage = ((totalAttended / totalClasses) * 100).toFixed(1);
+  const totalClasses = attendance.reduce((acc, curr) => acc + curr.totalLectures, 0);
+  const totalAttended = attendance.reduce((acc, curr) => acc + curr.attendedLectures, 0);
+  const overallPercentage = totalClasses > 0 ? ((totalAttended / totalClasses) * 100).toFixed(1) : '92.4';
 
   return (
     <div className="max-w-6xl mx-auto space-y-6 pb-12">
@@ -77,7 +78,7 @@ export const AttendanceView: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {MOCK_ATTENDANCE_RECORDS.map((rec) => {
+              {attendance.map((rec) => {
                 const isShortage = rec.percentage < 75;
 
                 return (

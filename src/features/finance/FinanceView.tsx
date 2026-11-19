@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { CreditCard, Printer, FileText, ArrowUpRight, ShieldCheck } from 'lucide-react';
-import { MOCK_FEE_ITEMS } from '../../mock/finance.mock';
 import { FeeItem } from '../../types/finance';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const FinanceView: React.FC = () => {
   const { toast } = useToast();
-  const [feeItems, setFeeItems] = useState<FeeItem[]>(MOCK_FEE_ITEMS);
+  const { finance, recordFeePayment } = useErp();
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [selectedReceipt, setSelectedReceipt] = useState<FeeItem | null>(null);
 
   // Form state for demo payment
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'bank' | 'scholarship'>('card');
   const [cardNumber, setCardNumber] = useState('•••• •••• •••• 4242');
+
+  const feeItems = finance;
 
   const totalPaid = feeItems
     .filter((f) => f.status === 'Paid')
@@ -26,21 +28,12 @@ export const FinanceView: React.FC = () => {
 
   const handleExecutePayment = (e: React.FormEvent) => {
     e.preventDefault();
-    const updated = feeItems.map((item) => {
-      if (item.status === 'Pending') {
-        return {
-          ...item,
-          status: 'Paid' as const,
-          paidDate: 'Jan 12, 2024',
-          receiptNumber: `RCPT-2024-${Math.floor(1000 + Math.random() * 9000)}`,
-        };
-      }
-      return item;
-    });
-
-    setFeeItems(updated);
+    const pendingItem = feeItems.find((f) => f.status === 'Pending' || f.status === 'Overdue');
+    if (pendingItem) {
+      recordFeePayment(pendingItem.id, pendingItem.amount, paymentMethod === 'card' ? 'Visa Card' : 'Bank Transfer');
+    }
     setIsPaymentModalOpen(false);
-    toast('Demo Tuition Payment of $4,200 successfully processed!', 'success');
+    toast('Tuition Payment successfully processed & verified with University Accounts!', 'success');
   };
 
   return (
@@ -332,7 +325,7 @@ export const FinanceView: React.FC = () => {
             <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-slate-200">
                 <div>
-                  <h4 className="font-extrabold text-sm text-slate-900 uppercase">UTOPIA UNIVERSITY BURSAR &amp; ACCOUNTS</h4>
+                  <h4 className="font-extrabold text-sm text-slate-900 uppercase">CAMPUSONE UNIVERSITY BURSAR &amp; ACCOUNTS</h4>
                   <p className="text-[10px] text-slate-500">Official Electronic Payment Receipt</p>
                 </div>
                 <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded border border-emerald-200">

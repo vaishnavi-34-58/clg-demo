@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Plus, Send, ShieldCheck } from 'lucide-react';
-import { MOCK_GRIEVANCES, GrievanceTicket } from '../../mock/grievances.mock';
+import { GrievanceTicket } from '../../mock/grievances.mock';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { useToast } from '../../context/ToastContext';
+import { useErp } from '../../hooks/useErp';
 
 export const GrievancesView: React.FC = () => {
   const { toast } = useToast();
-  const [tickets, setTickets] = useState<GrievanceTicket[]>(MOCK_GRIEVANCES);
+  const { grievances } = useErp();
+  const tickets = grievances;
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
 
   // Form State
@@ -30,7 +32,7 @@ export const GrievancesView: React.FC = () => {
       respondedBy: 'Student Grievance Cell',
     };
 
-    setTickets([newTicket, ...tickets]);
+    grievances.unshift(newTicket);
     setIsNewModalOpen(false);
     setSubject('');
     setDescription('');

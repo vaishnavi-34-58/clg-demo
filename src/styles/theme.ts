@@ -1,6 +1,6 @@
 /**
  * College Management ERP - Theme Tokens
- * Inspired by Utopia Student Portal reference design
+ * Inspired by CampusOne Student Portal reference design
  */
 
 export const themeTokens = {
